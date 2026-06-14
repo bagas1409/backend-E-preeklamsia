@@ -1,0 +1,61 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model User {
+  id        String      @id @default(uuid())
+  name      String
+  email     String      @unique
+  password  String
+  role      Role        @default(USER)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  diagnoses Diagnosis[]
+
+  @@map("users")
+}
+
+enum RiskLevel {
+  LOW
+  MID
+  HIGH
+}
+
+model Diagnosis {
+  id                    String     @id @default(uuid())
+  userId                String
+  gravida               Int
+  parity                Int
+  gestationalAge        Float
+  age                   Int
+  bmi                   Float
+  diabetes              Boolean    @default(false)
+  historyOfHypertension Boolean    @default(false)
+  systolicBP            Int
+  diastolicBP           Int
+  hb                    Float
+  fetalWeight           Float
+  proteinUria           Boolean    @default(false)
+  ri                    Float
+  pi                    Float
+  amnioticFluidLevels   Float
+  riskLevel             RiskLevel?
+  
+  createdAt             DateTime   @default(now())
+  updatedAt             DateTime   @updatedAt
+
+  user                  User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("diagnoses")
+}

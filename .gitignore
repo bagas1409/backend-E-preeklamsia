@@ -1,0 +1,29 @@
+# Node.js Ignore
+node_modules/
+dist/
+build/
+coverage/
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# Environment Variables (RAHASIA: Jangan pernah diunggah!)
+
+!.env.example
+
+# OS & Editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Prisma SQLite (Jika menggunakan database lokal, jangan diunggah)
+prisma/*.db
+prisma/*.db-journal
+
+# Temporary files
+*.swp
+*~
